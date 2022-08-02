@@ -26,6 +26,9 @@ namespace LexiconUniversity.Data
                 .UsingEntity<Enrollment>(
                     e => e.HasOne(e => e.Course).WithMany(c => c.Enrollments),
                     e => e.HasOne(e => e.Student).WithMany(s => s.Enrollments));
+
+
+
         }
     }
 }
