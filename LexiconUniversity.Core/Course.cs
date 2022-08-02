@@ -17,5 +17,7 @@
 
         // Navigation properties
         public ICollection<Student> Students { get; set; } = new List<Student>();
+
+        public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
     }
 }
