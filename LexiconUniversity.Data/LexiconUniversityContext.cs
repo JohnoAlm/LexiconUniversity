@@ -13,5 +13,11 @@ namespace LexiconUniversity.Data
         public DbSet<Course> Course { get; set; }
 
         public DbSet<Student> Student { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //FluentAPI
+        }
     }
 }

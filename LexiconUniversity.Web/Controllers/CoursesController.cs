@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using LexiconUniversity.Core;
+using LexiconUniversity.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using LexiconUniversity.Core;
-using LexiconUniversity.Web.Data;
 
 namespace LexiconUniversity.Web.Controllers
 {
@@ -22,9 +17,9 @@ namespace LexiconUniversity.Web.Controllers
         // GET: Courses
         public async Task<IActionResult> Index()
         {
-              return _context.Course != null ? 
-                          View(await _context.Course.ToListAsync()) :
-                          Problem("Entity set 'LexiconUniversityContext.Course'  is null.");
+            return _context.Course != null ?
+                        View(await _context.Course.ToListAsync()) :
+                        Problem("Entity set 'LexiconUniversityContext.Course'  is null.");
         }
 
         // GET: Courses/Details/5
@@ -150,14 +145,14 @@ namespace LexiconUniversity.Web.Controllers
             {
                 _context.Course.Remove(course);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CourseExists(int id)
         {
-          return (_context.Course?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Course?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
