@@ -1,4 +1,4 @@
-﻿@model LexiconUniversity.Core.Student
+﻿@model StudentCreateViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -12,11 +12,11 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+@*            <div class="form-group">
                 <label asp-for="Avatar" class="control-label"></label>
                 <input asp-for="Avatar" class="form-control" />
                 <span asp-validation-for="Avatar" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />
@@ -31,6 +31,21 @@
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddressStreet" class="control-label"></label>
+                <input asp-for="AddressStreet" class="form-control" />
+                <span asp-validation-for="AddressStreet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddressCity" class="control-label"></label>
+                <input asp-for="AddressCity" class="form-control" />
+                <span asp-validation-for="AddressCity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddressZipCode" class="control-label"></label>
+                <input asp-for="AddressZipCode" class="form-control" />
+                <span asp-validation-for="AddressZipCode" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
