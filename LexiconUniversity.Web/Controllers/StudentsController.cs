@@ -2,6 +2,7 @@
 using Bogus;
 using LexiconUniversity.Core;
 using LexiconUniversity.Data;
+using LexiconUniversity.Web.Filters;
 using LexiconUniversity.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -74,29 +75,30 @@ namespace LexiconUniversity.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ModelValidationFilter]
         public async Task<IActionResult> Create(StudentCreateViewModel viewModel)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
 
-                //var student = new Student(faker.Internet.Avatar(), viewModel.FirstName, viewModel.LastName, viewModel.Email)
-                //{
-                //    Address = new Address
-                //    {
-                //        City = viewModel.AddressCity,
-                //        Street = viewModel.AddressStreet,
-                //        ZipCode = viewModel.AddressZipCode
-                //    }
-                //};
+            //var student = new Student(faker.Internet.Avatar(), viewModel.FirstName, viewModel.LastName, viewModel.Email)
+            //{
+            //    Address = new Address
+            //    {
+            //        City = viewModel.AddressCity,
+            //        Street = viewModel.AddressStreet,
+            //        ZipCode = viewModel.AddressZipCode
+            //    }
+            //};
 
-                var student = mapper.Map<Student>(viewModel);
-                student.Avatar = faker.Internet.Avatar();
+            var student = mapper.Map<Student>(viewModel);
+            student.Avatar = faker.Internet.Avatar();
 
-                _context.Add(student);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(viewModel);
+            _context.Add(student);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+            //}
+            //return View(viewModel);
         }
 
         // GET: Students/Edit/5
@@ -138,6 +140,8 @@ namespace LexiconUniversity.Web.Controllers
                         .FirstOrDefaultAsync(s => s.Id == id);
 
                     mapper.Map(viewModel, student);
+
+                    //_context.Entry(student).Property("Edited").CurrentValue = DateTime.Now;
 
                     _context.Update(student);
                     await _context.SaveChangesAsync();

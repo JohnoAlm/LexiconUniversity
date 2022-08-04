@@ -8,6 +8,7 @@ namespace LexiconUniversity.Data
         public LexiconUniversityContext(DbContextOptions<LexiconUniversityContext> options)
             : base(options)
         {
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public DbSet<Course> Course { get; set; }
@@ -27,8 +28,23 @@ namespace LexiconUniversity.Data
                     e => e.HasOne(e => e.Course).WithMany(c => c.Enrollments),
                     e => e.HasOne(e => e.Student).WithMany(s => s.Enrollments));
 
+            modelBuilder.Entity<Course>().Property(c => c.Title).HasColumnName("Course Name");
 
+            // Shadow Property
+            modelBuilder.Entity<Student>().Property<DateTime>("Edited");
 
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            ChangeTracker.DetectChanges();
+
+            foreach (var entry in ChangeTracker.Entries<Student>().Where(e => e.State == EntityState.Modified))
+            {
+                entry.Property("Edited").CurrentValue = DateTime.Now;
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
         }
     }
 }
