@@ -199,5 +199,14 @@ namespace LexiconUniversity.Web.Controllers
         {
             return (_context.Student?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        public async Task<IActionResult> CheckIfEmailIsUnique(string email)
+        {
+            if (await _context.Student.AnyAsync(s => s.Email == email))
+            {
+                return Json("There is already a student with that email!");
+            }
+            return Json(true);
+        }
     }
 }
